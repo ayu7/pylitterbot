@@ -12,6 +12,7 @@ from typing import TYPE_CHECKING, Any, Awaitable, Callable, Generic, TypeVar
 from aiohttp import ClientError, ClientWebSocketResponse, WSMsgType
 from yarl import URL
 
+from .session import DEFAULT_USER_AGENT
 from .utils import utcnow
 
 if TYPE_CHECKING:
@@ -164,6 +165,7 @@ class WebSocketMonitor(Transport):
 
         robot = next(iter(self._listeners.values()))
         config = await self._protocol.ws_config_factory(robot)
+        config.setdefault("headers", {}).setdefault("User-Agent", DEFAULT_USER_AGENT)
         connection_init = config.pop("connection_init", None)
 
         _LOGGER.debug("WebSocket connecting: %s", URL(config["url"]).with_query(None))
