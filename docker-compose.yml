@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: ui-backend/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - LITTER_ROBOT_EMAIL=${LITTER_ROBOT_EMAIL}
+      - LITTER_ROBOT_PASSWORD=${LITTER_ROBOT_PASSWORD}
+    volumes:
+      - ./ui-backend:/app
+    command: python main.py
+
+  frontend:
+    build:
+      context: ui-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_URL=http://backend:8000

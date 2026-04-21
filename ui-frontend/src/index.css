@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #f5f7fa;
+  color: #2c3e50;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Whisker Brand Colors */
+:root {
+  --whisker-primary: #1fb2a3;
+  --whisker-primary-dark: #1a8f7f;
+  --whisker-secondary: #4a90e2;
+  --whisker-light: #f5f7fa;
+  --whisker-border: #e8ecf1;
+  --whisker-text: #2c3e50;
+  --whisker-text-light: #8b95a5;
+}

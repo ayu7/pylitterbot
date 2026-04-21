@@ -1,0 +1,135 @@
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  background: white;
+  border-radius: 8px;
+  padding: 28px 32px;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  border-top: 4px solid var(--whisker-primary);
+}
+
+.app-header h1 {
+  color: var(--whisker-text);
+  font-size: 32px;
+  font-weight: 700;
+  flex: 1;
+  letter-spacing: -0.5px;
+}
+
+.app-nav {
+  display: flex;
+  gap: 12px;
+}
+
+.nav-link {
+  padding: 10px 24px;
+  border-radius: 6px;
+  background: var(--whisker-primary);
+  color: white;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+}
+
+.nav-link:hover {
+  background: var(--whisker-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(31, 178, 163, 0.2);
+}
+
+.robot-selector {
+  background: white;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid var(--whisker-border);
+}
+
+.robot-selector label {
+  font-weight: 600;
+  color: var(--whisker-text);
+  font-size: 14px;
+}
+
+.robot-selector select {
+  padding: 10px 14px;
+  border: 1px solid var(--whisker-border);
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  background: white;
+  color: var(--whisker-text);
+  transition: border-color 0.2s ease;
+}
+
+.robot-selector select:hover {
+  border-color: var(--whisker-primary);
+}
+
+.robot-selector select:focus {
+  outline: none;
+  border-color: var(--whisker-primary);
+  box-shadow: 0 0 0 3px rgba(31, 178, 163, 0.1);
+}
+
+.app-main {
+  flex: 1;
+}
+
+.app-footer {
+  text-align: center;
+  color: var(--whisker-text-light);
+  margin-top: 48px;
+  padding: 24px;
+  font-size: 14px;
+}
+
+.error-message {
+  background: #fde8e8;
+  border: 1px solid #fccccc;
+  border-left: 4px solid #e74c3c;
+  color: #c0392b;
+  padding: 16px 20px;
+  border-radius: 6px;
+  margin: 20px 0;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .app-header h1 {
+    font-size: 24px;
+  }
+
+  .app-nav {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .robot-selector {
+    flex-wrap: wrap;
+  }
+}
