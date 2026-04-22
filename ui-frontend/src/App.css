@@ -1,32 +1,33 @@
 .app-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 24px;
+  padding: 16px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background: var(--bg);
 }
 
 .app-header {
-  background: white;
-  border-radius: 8px;
-  padding: 28px 32px;
-  margin-bottom: 32px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-soft);
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 20px;
-  border-top: 4px solid var(--whisker-primary);
+  border: none;
 }
 
 .app-header h1 {
-  color: var(--whisker-text);
-  font-size: 32px;
-  font-weight: 700;
+  color: var(--text);
+  font-size: 28px;
+  font-weight: 600;
   flex: 1;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.3px;
 }
 
 .app-nav {
@@ -35,60 +36,56 @@
 }
 
 .nav-link {
-  padding: 10px 24px;
-  border-radius: 6px;
-  background: var(--whisker-primary);
-  color: white;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: var(--card-alt);
+  color: var(--text-muted);
   text-decoration: none;
   transition: all 0.2s ease;
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: 0.3px;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.2px;
 }
 
-.nav-link:hover {
-  background: var(--whisker-primary-dark);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(31, 178, 163, 0.2);
+.nav-link:hover,
+.nav-link.active {
+  background: var(--accent);
+  color: #000;
 }
 
 .robot-selector {
-  background: white;
-  border-radius: 8px;
-  padding: 16px 20px;
+  background: var(--card);
+  border-radius: var(--radius-md);
+  padding: 16px;
   margin-bottom: 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-soft);
   display: flex;
   align-items: center;
   gap: 16px;
-  border: 1px solid var(--whisker-border);
+  border: none;
 }
 
 .robot-selector label {
-  font-weight: 600;
-  color: var(--whisker-text);
+  font-weight: 500;
+  color: var(--text-muted);
   font-size: 14px;
 }
 
 .robot-selector select {
   padding: 10px 14px;
-  border: 1px solid var(--whisker-border);
-  border-radius: 6px;
-  font-size: 14px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
   cursor: pointer;
-  background: white;
-  color: var(--whisker-text);
-  transition: border-color 0.2s ease;
+  background: var(--card-alt);
+  color: var(--text);
+  transition: all 0.2s ease;
 }
 
-.robot-selector select:hover {
-  border-color: var(--whisker-primary);
-}
-
+.robot-selector select:hover,
 .robot-selector select:focus {
+  background: #3a3a3c;
   outline: none;
-  border-color: var(--whisker-primary);
-  box-shadow: 0 0 0 3px rgba(31, 178, 163, 0.1);
 }
 
 .app-main {
@@ -97,21 +94,21 @@
 
 .app-footer {
   text-align: center;
-  color: var(--whisker-text-light);
+  color: var(--text-muted);
   margin-top: 48px;
   padding: 24px;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .error-message {
-  background: #fde8e8;
-  border: 1px solid #fccccc;
-  border-left: 4px solid #e74c3c;
-  color: #c0392b;
-  padding: 16px 20px;
-  border-radius: 6px;
-  margin: 20px 0;
-  font-size: 14px;
+  background: rgba(255, 59, 48, 0.1);
+  border: none;
+  border-left: 4px solid var(--error);
+  color: #ff6b6b;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  margin: 16px 0;
+  font-size: 13px;
 }
 
 @media (max-width: 768px) {

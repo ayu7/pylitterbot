@@ -2,7 +2,7 @@
 
 import logging
 import sys
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -20,7 +20,7 @@ _LOGGER = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
 app = FastAPI(
-    title="Litter Robot UI API",
+    title="Litter Robot UI",
     description="API for controlling and monitoring Litter Robots",
     version="1.0.0",
 )
@@ -42,8 +42,15 @@ _robots: dict = {}
 class ActivityResponse(BaseModel):
     """Activity response model."""
 
+    messageId: str
+    userId: str
+    eventId: str
+    serial: str
+    robotName: str
+    type: str
     timestamp: str
-    action: str
+    subtype: str | None = None
+    categories: list[str] | None = None
 
 
 class RobotStatusResponse(BaseModel):
@@ -100,10 +107,9 @@ async def startup_event():
         # Initialize account and connect
         _account = Account()
         _LOGGER.info(f"Connecting to Litter Robot account: {email}")
-        await _account.connect(email, password, load_robots=True)
+        await _account.connect(email, password, load_robots=True, load_pets=True)
         _LOGGER.info("Successfully connected to Litter Robot account")
 
-        _LOGGER.info("Successfully connected to Litter Robot account")
         # Store robots
         for robot in _account.robots:
             _robots[robot.id] = robot
@@ -167,6 +173,48 @@ async def get_robot_status(robot_id: str):
     }
 
 
+@app.get("/robots/{robot_id}/waste_drawer_level")
+async def get_robot_waste_drawer_level(robot_id: str):
+    """Get the waste drawer level for a specific robot."""
+    if robot_id not in _robots:
+        raise HTTPException(status_code=404, detail="Robot not found")
+    robot = _robots[robot_id]
+
+    try:
+        waste_level = robot.waste_drawer_level
+        _LOGGER.info(f"Retrieved waste drawer level for robot {robot_id}")
+        return {
+            "waste_drawer_level": waste_level,
+        }
+    except Exception as e:
+        _LOGGER.error(
+            f"Failed to retrieve waste drawer level for robot {robot_id}: {e}"
+        )
+        raise HTTPException(
+            status_code=500, detail=f"Failed to retrieve waste drawer level: {str(e)}"
+        )
+
+
+@app.get("/robots/{robot_id}/litter_level")
+async def get_robot_litter_level(robot_id: str):
+    """Get the litter level for a specific robot."""
+    if robot_id not in _robots:
+        raise HTTPException(status_code=404, detail="Robot not found")
+    robot = _robots[robot_id]
+
+    try:
+        litter_level = robot.litter_level
+        _LOGGER.info(f"Retrieved litter level for robot {robot_id}")
+        return {
+            "litter_level": litter_level,
+        }
+    except Exception as e:
+        _LOGGER.error(f"Failed to retrieve litter level for robot {robot_id}: {e}")
+        raise HTTPException(
+            status_code=500, detail=f"Failed to retrieve litter level: {str(e)}"
+        )
+
+
 @app.get("/robots/{robot_id}/activities")
 async def get_robot_activities(robot_id: str, limit: int = 20):
     """Get recent activities for a robot."""
@@ -178,14 +226,8 @@ async def get_robot_activities(robot_id: str, limit: int = 20):
     # Get activities from the robot
     activities = []
     try:
-        if hasattr(robot, "activities") and robot.activities:
-            for activity in robot.activities[:limit]:
-                activities.append(
-                    {
-                        "timestamp": activity.timestamp.isoformat(),
-                        "action": str(activity.action),
-                    }
-                )
+        activities = await robot.get_activities(limit=limit)
+        _LOGGER.info(f"Retrieved {len(activities)} activities for robot {robot_id}")
     except Exception as e:
         _LOGGER.warning(f"Failed to retrieve activities for robot {robot_id}: {e}")
 
@@ -217,26 +259,26 @@ async def control_robot(robot_id: str, request: RobotControlRequest):
     try:
         # Send control command based on action
         if request.action == "clean":
-            await robot.clean()
+            await robot.start_cleaning()
         elif request.action == "power_on":
-            await robot.power_on()
+            await robot.set_power_status(True)
         elif request.action == "power_off":
-            await robot.power_off()
+            await robot.set_power_status(False)
         elif request.action == "night_light_on":
-            await robot.night_light_on()
+            await robot.set_night_light(True)
         elif request.action == "night_light_off":
-            await robot.night_light_off()
+            await robot.set_night_light(False)
         elif request.action == "lock_on":
-            await robot.lock_panel()
+            await robot.set_panel_lockout(True)
         elif request.action == "lock_off":
-            await robot.unlock_panel()
+            await robot.set_panel_lockout(False)
 
         _LOGGER.info(f"Sent {request.action} command to robot {robot_id}")
         return {
             "robot_id": robot_id,
             "action": request.action,
             "status": "success",
-            "timestamp": datetime.now().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
         }
     except Exception as e:
         _LOGGER.error(f"Failed to send control command to robot {robot_id}: {e}")
@@ -258,7 +300,7 @@ async def reset_drawer(robot_id: str):
             "robot_id": robot_id,
             "action": "reset_drawer",
             "status": "success",
-            "timestamp": datetime.now().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
         }
     except Exception as e:
         _LOGGER.error(f"Failed to reset waste drawer for robot {robot_id}: {e}")

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import { ActivityPage } from './pages/ActivityPage'
-import { ControlsPage } from './pages/ControlsPage'
+import { ControlsPage as DevicesPage } from './pages/ControlsPage'
 import { robotService } from './services/robotService'
 import './App.css'
 
@@ -53,7 +53,7 @@ function App() {
           <h1>Litter Robot Control Center</h1>
           <nav className="app-nav">
             <Link to="/" className="nav-link">Activities</Link>
-            <Link to="/controls" className="nav-link">Controls</Link>
+            <Link to="/devices" className="nav-link">Devices</Link>
           </nav>
         </header>
 
@@ -77,7 +77,7 @@ function App() {
         <main className="app-main">
           <Routes>
             <Route path="/" element={<ActivityPage robotId={selectedRobotId} />} />
-            <Route path="/controls" element={<ControlsPage robotId={selectedRobotId} />} />
+            <Route path="/devices" element={<DevicesPage robotId={selectedRobotId} />} />
           </Routes>
         </main>
 

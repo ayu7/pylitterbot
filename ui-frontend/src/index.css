@@ -9,8 +9,8 @@ body {
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #f5f7fa;
-  color: #2c3e50;
+  background: #1e1e1f;
+  color: #ffffff;
   min-height: 100vh;
 }
 
@@ -18,13 +18,38 @@ body {
   min-height: 100vh;
 }
 
-/* Whisker Brand Colors */
+/* Modern IoT Dashboard Design Tokens */
 :root {
-  --whisker-primary: #1fb2a3;
-  --whisker-primary-dark: #1a8f7f;
-  --whisker-secondary: #4a90e2;
-  --whisker-light: #f5f7fa;
-  --whisker-border: #e8ecf1;
-  --whisker-text: #2c3e50;
-  --whisker-text-light: #8b95a5;
+  /* Dark theme backgrounds */
+  --bg: #1e1e1f;
+  --card: #2a2a2c;
+  --card-alt: #333336;
+  --text: #ffffff;
+  --text-muted: #a1a1a6;
+
+  /* Accent colors */
+  --accent: #f4a646;
+  --accent-soft: #f4a64622;
+
+  /* Status colors */
+  --success: #4cd964;
+  --warning: #ff9f0a;
+  --error: #ff3b30;
+
+  /* Border radius (rounded aesthetic) */
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+
+  /* Shadows (soft, not harsh) */
+  --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.25);
+
+  /* Legacy Whisker variables for backward compatibility */
+  --whisker-primary: #f4a646;
+  --whisker-primary-dark: #e89533;
+  --whisker-secondary: #4da3ff;
+  --whisker-light: #2a2a2c;
+  --whisker-border: #333336;
+  --whisker-text: #ffffff;
+  --whisker-text-light: #a1a1a6;
 }

@@ -21,7 +21,7 @@ export const ActivityPage = ({ robotId }) => {
     }
 
     fetchActivities()
-    const interval = setInterval(fetchActivities, 30000) // Refresh every 30 seconds
+    const interval = setInterval(fetchActivities, 60000) // Refresh every 30 seconds
 
     return () => clearInterval(interval)
   }, [robotId])
@@ -43,7 +43,8 @@ export const ActivityPage = ({ robotId }) => {
               <div className="activity-time">
                 {new Date(activity.timestamp).toLocaleString()}
               </div>
-              <div className="activity-action">{activity.action}</div>
+              <div className="activity-robot-name">{activity.robotName}</div>
+              <div className="activity-action">{activity.type}</div>
             </div>
           ))}
         </div>

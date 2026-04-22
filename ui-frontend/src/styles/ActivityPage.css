@@ -1,16 +1,16 @@
 .activity-page {
-  background: white;
-  border-radius: 8px;
-  padding: 28px 32px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  border: 1px solid var(--whisker-border);
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-soft);
+  border: none;
 }
 
 .activity-page h1 {
-  color: var(--whisker-text);
+  color: var(--text);
   margin-bottom: 24px;
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -0.3px;
 }
 
@@ -26,20 +26,21 @@
   display: flex;
   gap: 15px;
   padding: 16px;
-  border-left: 4px solid var(--whisker-primary);
-  background: var(--whisker-light);
-  border-radius: 6px;
+  border-left: none;
+  background: var(--card-alt);
+  border-radius: var(--radius-md);
   transition: all 0.2s ease;
 }
 
 .activity-item:hover {
-  background: #ecf5f4;
-  transform: translateX(4px);
+  background: #3a3a3c;
+  transform: translateX(0);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .activity-time {
-  color: var(--whisker-primary);
-  font-weight: 600;
+  color: var(--accent);
+  font-weight: 500;
   white-space: nowrap;
   font-size: 12px;
   align-self: center;
@@ -47,14 +48,14 @@
 }
 
 .activity-action {
-  color: var(--whisker-text);
+  color: var(--text);
   flex: 1;
   line-height: 1.5;
   font-size: 14px;
 }
 
 .activity-page p {
-  color: var(--whisker-text-light);
+  color: var(--text-muted);
   text-align: center;
   padding: 40px 20px;
   font-size: 14px;

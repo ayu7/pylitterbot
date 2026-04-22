@@ -20,6 +20,16 @@ export const robotService = {
     return response.data
   },
 
+  getRobotWaste: async (robotId) => {
+    const response = await apiClient.get(`/robots/${robotId}/waste_drawer_level`)
+    return response.data.waste_drawer_level
+  },
+
+  getRobotLitter: async (robotId) => {
+    const response = await apiClient.get(`/robots/${robotId}/litter_level`)
+    return response.data.litter_level
+  },
+
   getRobotActivities: async (robotId, limit = 20) => {
     const response = await apiClient.get(`/robots/${robotId}/activities?limit=${limit}`)
     return response.data.activities
